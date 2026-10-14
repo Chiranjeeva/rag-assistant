@@ -43,3 +43,23 @@ python -m scripts.ingest_folder
 ```bash
 python -m streamlit run app.py
 ```
+
+## Evaluation
+
+Run:
+
+```bash
+python -m eval.rag_eval
+```
+
+Metrics:
+
+- Retrieval Hit Rate
+- Faithfulness
+- Relevance
+
+Results are saved to:
+
+```text
+eval_results.json
+```

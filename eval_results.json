@@ -1,0 +1,195 @@
+{
+  "timestamp": "2026-10-14T07:44:40.349018+00:00",
+  "summary": {
+    "total_cases": 11,
+    "passed": 11,
+    "failed": 0,
+    "pass_rate": 1.0,
+    "retrieval_hit_rate": 0.818,
+    "avg_faithfulness": 0.995,
+    "avg_relevance": 0.986
+  },
+  "thresholds": {
+    "faithfulness": 0.8,
+    "relevance": 0.75,
+    "retrieval_hit_rate": 0.7
+  },
+  "results": [
+    {
+      "question": "How do I reset my password?",
+      "expected": "Use the self-service password reset portal.",
+      "actual": "According to the context, you must reset your password through the company self-service password reset portal.\n\nWhen you choose a new password, keep these requirements in mind:\n- It must be at least 14 characters long.\n- It must include uppercase letters, lowercase letters, numbers, and special characters.\n- Passwords expire every 90 days.\n\nIf you get locked out, contact IT support (the IT Help Desk). Accounts are automatically locked after five failed login attempts.\n\nThe context doesn't give the portal's address or step-by-step instructions for using it.",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.6508,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 0.95,
+        "reasoning": "Every claim (self-service portal, 14+ characters with mixed character types, 90-day expiry, contacting IT support/Help Desk, lockout after five failed attempts) is directly supported by the context, and the answer directly addresses how to reset a password while honestly noting that the context lacks the portal address and step-by-step instructions."
+      }
+    },
+    {
+      "question": "How long should passwords be?",
+      "expected": "Passwords must be at least 14 characters.",
+      "actual": "Passwords must be at least 14 characters long. They should also include uppercase and lowercase letters, numbers, and special characters, and they expire every 90 days.",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.6578,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "reasoning": "The answer's claims (at least 14 characters, mixed character types, 90-day expiry) are all stated in the context's Password Reset Policy, and it directly answers the length question, with the extra details being relevant and not excessive."
+      }
+    },
+    {
+      "question": "How often do passwords expire?",
+      "expected": "Passwords expire every 90 days.",
+      "actual": "Passwords expire every 90 days, according to the Password Reset Policy in the provided context.",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.5823,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "reasoning": "The context states \"Passwords expire every 90 days\" under the Password Reset Policy, so the answer is fully supported and directly answers the question."
+      }
+    },
+    {
+      "question": "What happens after five failed logins?",
+      "expected": "Accounts are automatically locked.",
+      "actual": "According to the Account Lockout Policy in the context, accounts are automatically locked after five failed login attempts. Users who are locked out should contact the IT Help Desk (or IT support).",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.5148,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "reasoning": "The answer accurately reflects the context, which states that accounts are automatically locked after five failed attempts and that locked-out users should contact the IT Help Desk or IT support, and it directly answers the question."
+      }
+    },
+    {
+      "question": "How many days per week can I work remotely?",
+      "expected": "Up to 3 days per week with manager approval.",
+      "actual": "According to the Remote Work Policy in the context, employees may work remotely up to **3 days per week**, with manager approval.",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.7105,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "reasoning": "The answer states that remote work is allowed up to 3 days per week with manager approval, which the Remote Work Policy in the context says directly, and it answers the question fully."
+      }
+    },
+    {
+      "question": "Can I use my personal laptop for work?",
+      "expected": "Personal devices are not permitted.",
+      "actual": "Based on the context, no, you can't use a personal laptop to access internal systems. The Remote Work Policy states that company-issued devices are required for access to internal systems, and personal devices are not permitted for that purpose. Remote work must also be done on company-issued devices connected to the VPN.\n\nThe context doesn't say whether a personal laptop could be used for work that doesn't involve internal systems. If you have that kind of use in mind, you'd need to check with your manager or IT support.",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.5762,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 0.95,
+        "relevance": 1.0,
+        "reasoning": "The answer accurately reflects the context (company-issued devices required, personal devices not permitted for internal systems, VPN required) and honestly notes the gap about non-internal-system work, with only the minor suggestion to check with manager or IT going beyond the context as advice rather than a factual claim."
+      }
+    },
+    {
+      "question": "Do I need VPN access when working remotely?",
+      "expected": "Remote work must use the company VPN.",
+      "actual": "Yes. According to the context, VPN access is required when working remotely:\n\n- The Remote Work Policy states that \"all remote access must use the company VPN,\" and that remote work must be performed on company-issued devices connected to the VPN.\n- The Security Policy's Remote Access section says remote access is permitted only through the company VPN. It also requires multi-factor authentication for all external connections.\n\nPersonal devices are not permitted for accessing internal systems. Company-issued devices are required.",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.7115,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "reasoning": "Every claim matches the context (VPN required for remote access, company-issued devices, MFA for external connections, personal devices not permitted), and the answer directly and fully answers the VPN question."
+      }
+    },
+    {
+      "question": "How long do we retain customer data?",
+      "expected": "Minimum seven years.",
+      "actual": "Customer data must be retained for a **minimum of 7 years**, per regulatory requirements. Related rules from the policy:\n\n- Data over 7 years old must be reviewed by Legal before it is deleted.\n- PII must be deleted within 30 days of a customer deletion request.\n- Backup data follows the same retention schedule as primary data.\n\nA second, less specific version of the policy says only that data must be retained \"according to regulatory requirements.\" It gives no figure.",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.7632,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "reasoning": "Every claim (7-year minimum, Legal review, 30-day PII deletion, backups following the same schedule, and the vaguer second policy version giving no figure) is directly supported by the context, and the answer directly states the retention period asked about while adding pertinent related rules."
+      }
+    },
+    {
+      "question": "What happens to PII after a deletion request?",
+      "expected": "PII must be deleted within 30 days.",
+      "actual": "According to the context, PII must be deleted within 30 days of a customer deletion request. An earlier, more general passage says only that PII deletion requests must be processed promptly, without giving a timeframe.\n\nThe context also says that all data over 7 years old must be reviewed by Legal before deletion. It does not say how that review interacts with PII deletion requests.",
+      "passed": true,
+      "retrieval": {
+        "hit": true,
+        "top_score": 0.6138,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "reasoning": "The answer accurately states the 30-day deletion requirement, correctly notes the earlier general passage lacks a timeframe, and accurately flags that the context does not explain how Legal review interacts with PII deletion, so it directly and completely answers the question without unsupported claims."
+      }
+    },
+    {
+      "question": "What is the company's maternity leave policy?",
+      "expected": "The information is not available",
+      "actual": "The provided context doesn't say anything about a maternity leave policy. The only leave-related information is in the Employee Handbook, which says that annual leave requests should be submitted through HR systems. For details on maternity leave, you would need to consult HR or a more complete version of the policy documents.",
+      "passed": true,
+      "retrieval": {
+        "hit": false,
+        "top_score": 0.4686,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 0.9,
+        "reasoning": "The answer correctly states that the context contains no maternity leave information and accurately cites the annual leave line from the handbook. It also sensibly directs the user to HR. It can't fully answer the question because the information isn't in the context, but it handles that gap appropriately."
+      }
+    },
+    {
+      "question": "What is the CEO's phone number?",
+      "expected": "The information is not available",
+      "actual": "The provided context doesn't include the CEO's phone number. It covers working hours, the code of conduct, leave policy, password reset requirements, remote work policy, and contacting IT support, but nothing about contact details for the CEO.",
+      "passed": true,
+      "retrieval": {
+        "hit": false,
+        "top_score": 0.2926,
+        "chunks_returned": 5
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "reasoning": "The answer correctly says the context has no CEO phone number and accurately summarizes the topics the context covers, so every claim is supported and the question is addressed as well as the context allows."
+      }
+    }
+  ]
+}

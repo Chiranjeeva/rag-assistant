@@ -1,56 +1,29 @@
-from src.embeddings.voyage_embeddings import (
-    VoyageEmbedder
-)
-
-from src.vectorstores.pinecone_store import (
-    PineconeStore
-)
-
-from src.retrieval.retriever import (
-    Retriever
-)
+from src.embeddings.voyage_embeddings import VoyageEmbedder
+from src.vectorstores.pinecone_store import PineconeStore
+from src.retrieval.retriever import Retriever
 
 def main():
 
-    embedder = VoyageEmbedder()
-
-    store = PineconeStore()
-
     retriever = Retriever(
-        embedder=embedder,
-        store=store,
+        embedder=VoyageEmbedder(),
+        store=PineconeStore(),
     )
 
     results = retriever.retrieve(
-        "How do I reset my password?"
+        "Can I use my personal laptop for work?"
     )
 
-    print()
+    print(f"\nRetrieved {len(results)} chunks\n")
 
-    print(
-        f"Retrieved {len(results)} chunks"
-    )
+    for i, result in enumerate(results, start=1):
 
-    print()
-
-    for result in results:
-
-        print(
-            f"Score: {result['score']:.3f}"
-        )
-
-        print(
-            f"Source: {result['source']}"
-        )
-
+        print("=" * 80)
+        print(f"Chunk {i}")
+        print(f"Score: {result['score']:.3f}")
+        print(f"Source: {result['source']}")
         print()
-
-        print(
-            result['text']
-        )
-
-        print("-" * 60)
-
+        print(result["text"])
+        print()
 
 if __name__ == "__main__":
     main()
