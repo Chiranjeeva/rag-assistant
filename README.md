@@ -63,3 +63,17 @@ Results are saved to:
 ```text
 eval_results.json
 ```
+
+## Permission-Aware Retrieval
+
+Supports:
+
+- Role-based access control
+- Department-based filtering
+- Metadata-filtered Pinecone retrieval
+
+Examples:
+
+- Employees cannot retrieve HR salary documents
+- HR users can retrieve HR documents
+- Finance users cannot access Engineering documents
