@@ -20,6 +20,26 @@ class ClaudeGenerator:
             api_key=os.getenv("ANTHROPIC_API_KEY")
         )
 
+    @staticmethod
+    def extract_text_from_response(response) -> str:
+        """
+        Safely extract text from Anthropic responses.
+        """
+
+        text_parts = []
+
+        for block in response.content:
+
+            if hasattr(block, "text"):
+
+                text_parts.append(
+                    block.text
+                )
+
+        return "\n".join(
+            text_parts
+        ).strip()
+
     def generate(
         self,
         question: str,
@@ -35,17 +55,17 @@ class ClaudeGenerator:
             )
 
         default_system_prompt = """
-You are a helpful AI assistant.
+            You are a helpful AI assistant.
 
-Answer ONLY using the provided context.
+            Answer ONLY using the provided context.
 
-If the context does not contain enough information,
-say that the information is unavailable.
+            If the context does not contain enough information,
+            say that the information is unavailable.
 
-Do not invent facts.
+            Do not invent facts.
 
-Always cite source documents when possible.
-"""
+            Always cite source documents when possible.
+            """
 
         context_blocks = []
 
@@ -70,14 +90,14 @@ Always cite source documents when possible.
         )
 
         user_prompt = f"""
-Context:
+            Context:
 
-{context}
+            {context}
 
-Question:
+            Question:
 
-{question}
-"""
+            {question}
+            """
 
         response = self.client.messages.create(
             model=GENERATION_MODEL,
@@ -94,4 +114,11 @@ Question:
             ],
         )
 
-        return response.content[0].text
+        print("\nResponse blocks:")
+
+        for block in response.content:
+            print(type(block))
+
+        return self.extract_text_from_response(
+                response
+            )

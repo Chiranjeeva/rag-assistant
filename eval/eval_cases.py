@@ -8,6 +8,7 @@ class EvalCase:
     expected_answer: str
     metadata_filter: Optional[dict] = None
     expect_retrieval: bool = True
+    user_role: str = "employee"
 
 EVAL_CASES = [
 
@@ -73,6 +74,26 @@ EVAL_CASES = [
         expected_answer=(
             "Remote work must use the company VPN."
         ),
+    ),
+
+    EvalCase(
+        question="What is the salary budget for 2027?",
+        expected_topic="salary budget",
+        expected_answer=(
+            "Information not available."
+        ),
+        expect_retrieval=False,
+        user_role="employee",
+    ),
+
+    EvalCase(
+        question="What is the salary budget for 2027?",
+        expected_topic="salary budget",
+        expected_answer=(
+            "Average salary increase of 8%."
+        ),
+        expect_retrieval=True,
+        user_role="hr",
     ),
 
     # --------------------------------------------------

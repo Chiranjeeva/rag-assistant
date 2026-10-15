@@ -5,11 +5,14 @@ from src.config.settings import (
     SIMILARITY_THRESHOLD,
 )
 
+from src.security.access_control import AccessControl
+from src.security.user_context import UserContext
+
 class Retriever:
     """
     Handles semantic retrieval from Pinecone.
     """
-
+    
     def __init__(
         self,
         embedder: VoyageEmbedder,
@@ -21,6 +24,7 @@ class Retriever:
     def retrieve(
         self,
         query: str,
+        user_context: UserContext | None = None,
         top_k: int = DEFAULT_TOP_K,
         namespace: str = "default",
         metadata_filter: dict | None = None,
@@ -29,6 +33,47 @@ class Retriever:
         query_embedding = self.embedder.embed_text(
             query
         )
+
+        # --------------------------------------------------
+        # Permission-aware filtering
+        # --------------------------------------------------
+
+        if user_context:
+
+            allowed_levels = (
+                AccessControl.get_allowed_levels(
+                    user_context.role
+                )
+            )
+
+            metadata_filter = {
+                "$and": [
+
+                    {
+                        "access_level": {
+                            "$in": allowed_levels
+                        }
+                    },
+
+                    {
+                        "department": {
+                            "$in": (
+                                user_context.departments
+                                + ["general"]
+                            )
+                        }
+                    },
+
+                    {
+                        "owner_group": {
+                            "$in": (
+                                user_context.groups
+                                + ["general"]
+                            )
+                        }
+                    }
+                ]
+            }
 
         results = self.store.query(
             vector=query_embedding,

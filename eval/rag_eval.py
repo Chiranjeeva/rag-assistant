@@ -33,6 +33,7 @@ from anthropic import Anthropic
 from pinecone import Pinecone
 import voyageai
 from eval.eval_cases import EVAL_CASES
+from src.security.user_context import UserContext
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -298,6 +299,18 @@ REASONING: [one sentence]"""
         reasoning=reasoning,
     )
 
+# ---------------------------------------------------------------------------
+# User Context helper
+# ---------------------------------------------------------------------------
+
+    def create_user_context(
+        role: str
+    ) -> UserContext:
+
+        return UserContext(
+            user_id=f"{role}-test",
+            role=role,
+        )
 
 # ---------------------------------------------------------------------------
 # Core eval runner

@@ -4,6 +4,10 @@ from src.core.rag_factory import (
     create_rag_pipeline,
 )
 
+from src.security.user_context import (
+    UserContext,
+)
+
 # --------------------------------------------------
 # Streamlit Configuration
 # --------------------------------------------------
@@ -15,7 +19,7 @@ st.set_page_config(
 )
 
 # --------------------------------------------------
-# Cache Pipeline
+# Cached Pipeline
 # --------------------------------------------------
 
 @st.cache_resource
@@ -23,6 +27,28 @@ def get_pipeline():
     return create_rag_pipeline()
 
 pipeline = get_pipeline()
+
+# --------------------------------------------------
+# User Role Selection
+# --------------------------------------------------
+
+st.sidebar.title("User Context")
+
+role = st.sidebar.selectbox(
+    "Role",
+    [
+        "employee",
+        "manager",
+        "hr",
+        "admin",
+    ]
+)
+
+user_context = UserContext(
+    user_id="demo-user",
+    role=role,
+)
+
 
 # --------------------------------------------------
 # Session State
@@ -36,24 +62,26 @@ if "messages" not in st.session_state:
 # --------------------------------------------------
 
 st.title("🤖 Enterprise RAG Assistant")
+
 st.caption(
-    "Ask questions about your uploaded company documents."
+    f"Current role: {role}"
 )
 
 # --------------------------------------------------
-# Display Chat History
+# Show Chat History
 # --------------------------------------------------
 
 for message in st.session_state.messages:
 
-    with st.chat_message(message["role"]):
-
+    with st.chat_message(
+        message["role"]
+    ):
         st.markdown(
             message["content"]
         )
 
 # --------------------------------------------------
-# User Input
+# Chat Input
 # --------------------------------------------------
 
 question = st.chat_input(
@@ -61,12 +89,10 @@ question = st.chat_input(
 )
 
 # --------------------------------------------------
-# Process Question
+# Answer
 # --------------------------------------------------
 
 if question:
-
-    # Show User Message
 
     st.session_state.messages.append(
         {
@@ -78,8 +104,6 @@ if question:
     with st.chat_message("user"):
         st.markdown(question)
 
-    # Generate Response
-
     with st.chat_message("assistant"):
 
         with st.spinner(
@@ -90,7 +114,8 @@ if question:
 
                 result = (
                     pipeline.query_with_sources(
-                        question
+                        question=question,
+                        user_context=user_context,
                     )
                 )
 
@@ -120,10 +145,7 @@ if question:
                                 0,
                             )
 
-                            if (
-                                source_name
-                                not in shown_sources
-                            ):
+                            if source_name not in shown_sources:
 
                                 st.write(
                                     f"• {source_name} "
@@ -134,8 +156,6 @@ if question:
                                     source_name
                                 )
 
-                # Store Assistant Response
-
                 st.session_state.messages.append(
                     {
                         "role": "assistant",
@@ -145,15 +165,6 @@ if question:
 
             except Exception as e:
 
-                error_message = (
+                st.error(
                     f"Error: {str(e)}"
-                )
-
-                st.error(error_message)
-
-                st.session_state.messages.append(
-                    {
-                        "role": "assistant",
-                        "content": error_message,
-                    }
                 )

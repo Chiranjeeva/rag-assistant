@@ -8,3 +8,4 @@ data/raw/*
 !data/raw/.gitkeep
 .vscode/
 eval/eval_results/
+audit_logs.jsonl

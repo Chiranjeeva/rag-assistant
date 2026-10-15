@@ -58,9 +58,33 @@ class DocumentIngestor:
 
                 metadata = {
                     **document.metadata,
+
+                    "source": document.metadata.get(
+                        "source",
+                        document.id,
+                    ),
+
+                    "access_level": document.metadata.get(
+                        "access_level",
+                        "public",
+                    ),
+
+                    "department": document.metadata.get(
+                        "department",
+                        "general",
+                    ),
+
+                    "owner_group": document.metadata.get(
+                        "owner_group",
+                        "general"
+                    ),
+
                     "text": chunk["text"],
+
                     "source_id": document.id,
+
                     "chunk_index": chunk["chunk_index"],
+
                     "total_chunks": chunk["total_chunks"],
                 }
 
